@@ -92,12 +92,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dea88b8bfbd93941b433ee338a4192d, type: 3}
-  m_Name: Outline Shader
+  m_Name: Outline Post Processing Shader
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    Event: 500
-    blitMaterial: {fileID: 2100000, guid: 49368281626cb534cb042c43dd692644, type: 2}
+    Event: 300
+    blitMaterial: {fileID: 2100000, guid: ec720fe5bee5f67469cddff9419ad557, type: 2}
     blitMaterialPassIndex: 0
     setInverseViewMatrix: 0
     requireDepthNormals: 1

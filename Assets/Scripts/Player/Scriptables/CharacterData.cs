@@ -22,6 +22,7 @@ public class CharacterData : ScriptableObject
     public float arcResistance = 1;
 
     [Header("Discrete Stats")]
+    public float size = 1;
     public float cooldownAcceleration = 0;
     public float critChance = 0;
     public float lifeSteal = 0;

@@ -21,8 +21,11 @@ public class PlayerData : MonoBehaviour
     public float dexResistance;
     public float arcResistance;
 
+    public float size;
+    public float cooldownAcceleration;
     public float critChance;
     public float lifeSteal;
+    public float evasiveness;
 
     void OnEnable()
     {
@@ -44,8 +47,11 @@ public class PlayerData : MonoBehaviour
             dexResistance = currentCharacter.dexResistance;
             arcResistance = currentCharacter.arcResistance;
 
+            size = currentCharacter.size;
+            cooldownAcceleration = currentCharacter.cooldownAcceleration;
             critChance = currentCharacter.critChance;
             lifeSteal = currentCharacter.lifeSteal;
+            evasiveness = currentCharacter.evasiveness;
         }
     }
 

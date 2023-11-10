@@ -9,6 +9,7 @@ public class CharacterSelectorManager : MonoBehaviour
 {
     [Header("Selection")]
     public int characterIndex = 0;
+    public bool isReady = false;
 
     [Header("Layout")]
     public GameObject[] autoLayout;
@@ -21,6 +22,8 @@ public class CharacterSelectorManager : MonoBehaviour
     public Slider dexteritySlider;
     public Slider arcanaSlider;
 
+    public GameObject readyOverlay;
+
     [Header("Input & Data")]
     private PlayerInput playerInput;
 
@@ -31,6 +34,8 @@ public class CharacterSelectorManager : MonoBehaviour
 
         autoLayout = GameObject.FindGameObjectsWithTag("CS_AutoLayout");
         transform.SetParent(autoLayout[0].transform);
+
+        autoLayout[0].SendMessage("addPlayer");
 
         transform.localScale = new Vector3(1,1,1);
 
@@ -97,4 +102,27 @@ public class CharacterSelectorManager : MonoBehaviour
     {
         DataManager.Instance.data.NewPLayer(playerInput.playerIndex, playerInput.currentControlScheme, playerInput.devices[0]);
     }
+
+    public void GetReady()
+    {
+        isReady = !isReady;
+
+        // UI UPDATE
+        readyOverlay.SetActive(isReady);
+        
+        // VOTE TO GO TO THE GAME
+        autoLayout[0].SendMessage("addReady", isReady);
+
+        if(isReady)
+        {
+            UpdatePlayerInfo();
+        }
+    }
+
+    public void UpdatePlayerInfo()
+    {
+        DataManager.Instance.data.players[playerInput.playerIndex].characterIndex = characterIndex;
+    }
 }
+
+

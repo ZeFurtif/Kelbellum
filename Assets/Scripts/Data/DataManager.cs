@@ -90,7 +90,7 @@ public class SaveData
     public List<Character> characters = new List<Character>();
 
     [Header("Area Data")]
-    public string currentArea = "1_Nohoak";
+    public string currentArea = "Nohoak";
     public int spawnIndex = 0;
 
     [Header("Temp Data")]

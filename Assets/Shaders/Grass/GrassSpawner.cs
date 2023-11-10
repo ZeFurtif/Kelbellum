@@ -15,9 +15,11 @@ public class GrassSpawner : MonoBehaviour
     public Vector3 offset;
     public float density = 10;
 
-    [Header("Grass Exceptions")]
-    public Material exceptionsShader;
+    [Header("Grass Shading")]
+    public Material baseMaterial;
+    public Material exceptionsMaterial;
     private Material[] toMeshRenderer;
+    private Material[] exceptionToMeshRenderer;
     private MeshRenderer mRenderer;
     [Range(0.0f, 1.0f)]
     public float rarity;
@@ -27,7 +29,9 @@ public class GrassSpawner : MonoBehaviour
     {
 
         toMeshRenderer = new Material[1];
-        toMeshRenderer[0] = exceptionsShader;
+        toMeshRenderer[0] = baseMaterial;
+        exceptionToMeshRenderer = new Material[1];
+        exceptionToMeshRenderer[0] = exceptionsMaterial;
 
         //Fetch the Collider from the GameObject
         m_Collider = GetComponent<Collider>();
@@ -64,7 +68,12 @@ public class GrassSpawner : MonoBehaviour
                 GameObject latest = Instantiate(grassPrefab, currentPos + rOffset, Quaternion.identity);
                 latest.transform.SetParent(this.transform);
 
-                if (UnityEngine.Random.Range(0f,1f) < rarity && exceptionsShader != null)
+                if (UnityEngine.Random.Range(0f,1f) < rarity && exceptionsMaterial != null)
+                {
+                    mRenderer = latest.GetComponent<MeshRenderer>();
+                    mRenderer.materials = exceptionToMeshRenderer;
+                }
+                else 
                 {
                     mRenderer = latest.GetComponent<MeshRenderer>();
                     mRenderer.materials = toMeshRenderer;
