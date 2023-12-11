@@ -41,7 +41,14 @@ public class CharacterSelectorManager : MonoBehaviour
 
         this.gameObject.SendMessage("PushTo", playerInput.playerIndex);
 
-        SavePIData();
+        if(DataManager.Instance.data.players.Count <= playerInput.playerIndex)
+        {
+            SavePlayerInputData();
+        }
+        else
+        {
+            characterIndex = DataManager.Instance.data.players[playerInput.playerIndex].characterIndex;
+        }
         UpdateUI();
     }
 
@@ -98,9 +105,22 @@ public class CharacterSelectorManager : MonoBehaviour
         arcanaSlider.value = DataManager.Instance.allCharactersData.charactersData[characterIndex].characterSO.arcana;
     }
 
-    void SavePIData()
+    void SavePlayerInputData()
     {
         DataManager.Instance.data.NewPLayer(playerInput.playerIndex, playerInput.currentControlScheme, playerInput.devices[0]);
+    }
+
+    void SaveCharacterIndex()
+    {
+        //Debug.Log("Character index is : " + playerInput.playerIndex);
+        if(playerInput.playerIndex == -1)
+        {
+            DataManager.Instance.data.players[DataManager.Instance.data.players.Count-1].characterIndex = characterIndex;
+        }
+        else
+        {
+            DataManager.Instance.data.players[System.Math.Abs(playerInput.playerIndex)].characterIndex = characterIndex;
+        }
     }
 
     public void GetReady()
@@ -115,13 +135,8 @@ public class CharacterSelectorManager : MonoBehaviour
 
         if(isReady)
         {
-            UpdatePlayerInfo();
+            SaveCharacterIndex();
         }
-    }
-
-    public void UpdatePlayerInfo()
-    {
-        DataManager.Instance.data.players[playerInput.playerIndex].characterIndex = characterIndex;
     }
 }
 

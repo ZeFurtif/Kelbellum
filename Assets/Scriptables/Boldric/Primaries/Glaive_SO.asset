@@ -12,14 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a43d2f577068a54a949844b136da15f, type: 3}
   m_Name: Glaive_SO
   m_EditorClassIdentifier: 
+  name: Glaive
   type: 0
-  baseDamage: 10
-  damage: 0
-  baseRange: 0.8
-  range: 0
-  baseKnockback: 1
-  knockback: 0
-  baseAttackSpeed: 0.9
-  attackSpeed: 0
+  forceDamage: 10
+  precisionDamage: 0
+  magicDamage: 0
+  range: 2.5
+  knockback: 2
+  attackSpeed: 2
+  useComboSystem: 1
+  comboMax: 3
+  comboWindow: 1
+  meleeFX: {fileID: 6886951840929693566, guid: 356013729f53b95468a62b2437b56dc8, type: 3}
+  FXRotations:
+  - {x: 0, y: 180, z: 0}
+  - {x: 35, y: 180, z: 0}
+  - {x: 0, y: 180, z: -20}
   projectileSpeed: 0
   projectilePrefab: {fileID: 0}
+  spellPrefab: {fileID: 0}

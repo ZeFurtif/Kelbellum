@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6635557697068703496}
   - component: {fileID: 6635557697068703493}
   - component: {fileID: 6635557697068703494}
-  m_Layer: 0
+  - component: {fileID: 1006153133184503170}
+  m_Layer: 3
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: PlayerObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: f711319aebe166143ae8be946a7b18c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,6 +84,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &1006153133184503170
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6635557697068703497}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6635557697283345353
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,9 +109,10 @@ GameObject:
   - component: {fileID: 6635557697283345352}
   - component: {fileID: 6635557697283345349}
   - component: {fileID: 6635557697283345350}
-  m_Layer: 0
+  - component: {fileID: 4969766822379473365}
+  m_Layer: 3
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: PlayerObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +160,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: f711319aebe166143ae8be946a7b18c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -166,6 +182,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4969766822379473365
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6635557697283345353}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6635557697997876193
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,9 +211,9 @@ GameObject:
   - component: {fileID: 6635557697997876191}
   - component: {fileID: 6635557697997876186}
   - component: {fileID: 6635557697997876187}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerLogic
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,8 +398,11 @@ MonoBehaviour:
   strResistance: 0
   dexResistance: 0
   arcResistance: 0
+  size: 0
+  cooldownAcceleration: 0
   critChance: 0
   lifeSteal: 0
+  evasiveness: 0
 --- !u!114 &6635557697997876190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,6 +415,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d8949e5dcaf4147b18303ce1076d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackVector: {x: 0, y: 0, z: 0}
+  knockbackDuration: 0.2
   faceAimDir: 0
   movementInput: {x: 0, y: 0}
   aimInput: {x: 0, y: 0}
@@ -434,9 +468,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6635557698428132617}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player_0.1
-  m_TagString: Untagged
+  m_TagString: PlayerPrefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -466,9 +500,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6635557698559266999}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerModel
-  m_TagString: Untagged
+  m_TagString: PlayerObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

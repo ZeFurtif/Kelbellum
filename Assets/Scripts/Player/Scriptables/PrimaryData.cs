@@ -4,6 +4,8 @@ using UnityEngine;
 public class PrimaryData : ScriptableObject
 {
     
+    public new string name; 
+
     public enum PrimaryType
     {
         melee,
@@ -11,24 +13,30 @@ public class PrimaryData : ScriptableObject
         spell
     }
 
-    [Header("Primary Ability")]
+    [Header("Settings")]
     public PrimaryType type;
 
-    public float baseDamage;
-    [HideInInspector] public float damage;
+    public float forceDamage;
+    public float precisionDamage;
+    public float magicDamage;
+    [Space(5)]
+    public float range;
+    public float knockback;
+    public float attackSpeed;
+    [Space(5)]
+    public bool useComboSystem;
+    public int comboMax;
+    public float comboWindow;
 
-    public float baseRange;
-    [HideInInspector] public float range;
+    [Header("Melee")]
+    public GameObject meleeFX;
+    public Vector3[] FXRotations;
 
-    public float baseKnockback;
-    [HideInInspector] public float knockback;
-
-    public float baseAttackSpeed;
-    [HideInInspector] public float attackSpeed;
-
-
-    [Header("Prefabs & FX")]
+    [Header("Range")]
     public float projectileSpeed;
     public GameObject projectilePrefab;
+
+    [Header("Spell")]
+    public GameObject spellPrefab;
     
 }

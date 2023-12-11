@@ -6,15 +6,20 @@ TagManager:
   tags:
   - PlayerPrefab
   - CS_AutoLayout
+  - PlayerSpawner
+  - CombatSelection
+  - CharacterSelection
+  - PlayerObjects
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Grass
-  - 
+  - Projectile
   - 
   - 
   - 

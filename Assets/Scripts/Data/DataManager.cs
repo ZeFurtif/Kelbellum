@@ -9,6 +9,7 @@ public class DataManager : MonoBehaviour
 {
 
     public static DataManager Instance { get; private set; }
+
     [Header("Save Management")]
     private string saveDir = @"/saves";
     public SaveData data = new SaveData();
@@ -18,11 +19,6 @@ public class DataManager : MonoBehaviour
 
     [Header("Static Characters Data")]
     public AllCharacters allCharactersData;
-
-    void Start()
-    {
-        Debug.Log(Application.persistentDataPath + saveDir);
-    }
 
     private void Awake() 
     {
@@ -37,6 +33,11 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        Debug.Log(Application.persistentDataPath + saveDir);
+    }
+    
     public void CreateJson(SaveData targetData, int saveIndex)
     {
         targetData.LoadCharacters(charactersData);
@@ -50,7 +51,6 @@ public class DataManager : MonoBehaviour
 
     public void SaveJson(SaveData targetData, int saveIndex)
     {
-        targetData.ClearTempData();
         OnSaveNewData(targetData, saveIndex);
 
         string dataPath = JsonUtility.ToJson(targetData);
@@ -63,6 +63,8 @@ public class DataManager : MonoBehaviour
     {
         string dataPath = File.ReadAllText(Application.persistentDataPath + saveDir + @"\save" + saveIndex + ".json");
         JsonUtility.FromJsonOverwrite(dataPath, targetData);
+
+        targetData.ClearTempData();
 
         Debug.Log("DataManager -- Loaded - " + dataPath);
     }
@@ -90,7 +92,7 @@ public class SaveData
     public List<Character> characters = new List<Character>();
 
     [Header("Area Data")]
-    public string currentArea = "Nohoak";
+    public string currentArea = "1_Nohoak";
     public int spawnIndex = 0;
 
     [Header("Temp Data")]
@@ -135,6 +137,12 @@ public class SaveData
 }
 
 [System.Serializable]
+public class ProgressionData
+{
+    public float progressionPercent;
+}
+
+[System.Serializable]
 public class Character
 {
     public string characterName;
@@ -150,11 +158,6 @@ public class Player
     public InputDevice device;
     //
     public int characterIndex;
-}
-
-
-[System.Serializable]
-public class Settings
-{
-    
+    public int primaryIndex;
+    public int secondaryIndex;
 }

@@ -5,24 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Static Character Data", menuName = "Kelbellum/Static Character Data")]
 public class AllCharacters : ScriptableObject
 {
-    public static AllCharacters Instance { get; private set; }
 
     [Header("Characters Settings")]
     public List<StaticCharacterData> charactersData = new List<StaticCharacterData>();
-
-
-    private void Awake() 
-    {
-        if (Instance != null)
-        {
-            Debug.Log("SINGLETON - Trying to create another singleton!");
-        }
-        else 
-        {
-            Instance = this;
-            DontDestroyOnLoad(Instance);
-        }
-    }
 
 }
 

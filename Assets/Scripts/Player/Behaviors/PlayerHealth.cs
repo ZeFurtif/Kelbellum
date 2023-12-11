@@ -7,21 +7,41 @@ public class PlayerHealth : MonoBehaviour
 {
     private PlayerData playerData;
 
-    private float health = 50f;
     private float maxHealth = 50f;
+    private Slider healthDisplay;
 
+    [HideInInspector]
     public float shieldValue = 0f;
     
-    private void Start() 
+    private void Awake()
     {
         playerData = gameObject.GetComponent<PlayerData>();
+
         GetData();
+    }
+
+    private void Start() 
+    {
+        GetData();
+        
+        UpdateDisplay();
+    }
+
+    private void Update()
+    {
+        if (playerData.health < maxHealth && playerData.regeneration != 0)
+        {
+            playerData.health += playerData.regeneration * Time.deltaTime;
+            if (playerData.health > maxHealth)
+            {
+                playerData.health = maxHealth;
+            }
+        }        
     }
 
     void GetData()
     {
-        maxHealth = playerData.health;
-        health = maxHealth;
+        maxHealth = playerData.currentCharacter.health;
     }
 
     public void LoadPlayerData(PlayerData newData)
@@ -30,23 +50,57 @@ public class PlayerHealth : MonoBehaviour
         GetData();
     }
 
-    public void ApplyDamage(float damage)
+    public void GetSlider(Slider display)
     {
+        healthDisplay = display;
+        UpdateDisplay();
+    }
+
+    public void ApplyDamage(Damage damage)
+    {
+        float cumulativeDamage = DamageAfterResistances(damage);
         if (shieldValue > 0)
         {
-            Debug.Log("TANKED");
-            float da = damage;
-            damage -= shieldValue;
+            //Debug.Log("TANKED");
+            float da = cumulativeDamage;
+            cumulativeDamage -= shieldValue;
             shieldValue -= da;
         }
-        if (damage > 0)
+        if (cumulativeDamage > 0)
         {
-            health -= damage;
+            playerData.health -= cumulativeDamage;
         }
         
-        if (health <= 0)
+        if (playerData.health <= 0)
         {
             this.gameObject.SetActive(false);
+        }
+
+        UpdateDisplay();
+    }
+
+    public void Heal(float healAmount)
+    {
+        //Debug.Log("HEAL");
+        playerData.health += healAmount;
+        if (playerData.health > maxHealth)
+        {
+            playerData.health = maxHealth;   
+        }
+        UpdateDisplay();
+    }
+    
+    public float DamageAfterResistances(Damage damage)
+    {
+        return (damage.damageVector.x / playerData.strResistance + damage.damageVector.y / playerData.dexResistance + damage.damageVector.z / playerData.arcResistance);
+    }
+
+    public void UpdateDisplay()
+    {
+        if (healthDisplay != null)
+        {
+            healthDisplay.value = playerData.health;   
+            healthDisplay.maxValue = maxHealth;
         }
     }
 }

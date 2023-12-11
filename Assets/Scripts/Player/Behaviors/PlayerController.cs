@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,11 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
+
+    [Header("Knockback")]
+    public Vector3 knockbackVector;
+    public float knockbackDuration = 0.2f;
+    private Vector3 knockbackRef = Vector3.zero;
 
     [Header("Aim")]
     public bool faceAimDir;
@@ -62,6 +68,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnKnockback(Vector3 knockback)
+    {
+        knockbackVector = Vector3.Normalize(knockback) * 10 / playerData.size; 
+    }
+
 
     //MOVEMENT
     private void HandleMovement() 
@@ -84,6 +95,12 @@ public class PlayerController : MonoBehaviour
         controller.Move(playerVelocity * Time.deltaTime);
     }
 
+    private void HandleKnockback()
+    {
+        knockbackVector = Vector3.SmoothDamp(knockbackVector, Vector3.zero, ref knockbackRef , knockbackDuration);
+        controller.Move(knockbackVector * Time.deltaTime);
+    }
+
     private void HandleAim()
     {
         if (aimInput != Vector2.zero)
@@ -96,10 +113,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleMovement();
+        HandleKnockback();
         if (!faceAimDir)
         {
             HandleAim();
         }
-
     }
 }

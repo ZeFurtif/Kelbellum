@@ -13,7 +13,8 @@ public class PrimaryAbility : MonoBehaviour
 
     private float cooldown;
     private float lastAttackTime = 0;
-        
+    private int currentComboCount = 0;
+
     private GameObject[] enemies;
     private GameObject[] enemiesHit;
     private GameObject closestEnemy;
@@ -48,10 +49,16 @@ public class PrimaryAbility : MonoBehaviour
     {
         if (ctx.performed && canUsePrimary && CooldownCheck())
         {
+            if (primaryData.useComboSystem)
+            {
+                UpdateComboState();
+                //Debug.Log(currentComboCount);
+            }
             UpdateEnemyList();
             switch (primaryData.type)
             {
                 case PrimaryData.PrimaryType.melee:
+                    MeleeFX();
                     MeleeEnemyCheck();
                     Hit();
                     break;
@@ -65,6 +72,7 @@ public class PrimaryAbility : MonoBehaviour
                     Debug.Log("Spell");
                     break;
             }
+            
             lastAttackTime = Time.time;
         }
     }
@@ -81,27 +89,26 @@ public class PrimaryAbility : MonoBehaviour
         }
     }
 
-    // DAMAGE SHENANIGANS
+    // COMBO STUFF
 
-    private float CalculateDamage()
+    private void UpdateComboState()
     {
-        return primaryData.damage * GetDamageMultiplier() * DoesItCrit();
+        if (Time.time - lastAttackTime <= primaryData.comboWindow)
+        {
+            currentComboCount += 1;
+        }
+        else 
+        {
+            currentComboCount = 0;
+        }
+        currentComboCount = currentComboCount % primaryData.comboMax;
     }
 
-    private float GetDamageMultiplier()
-    {
-        switch (primaryData.type)
-        {
-            case PrimaryData.PrimaryType.melee:
-                return playerData.strength;
-            
-            case PrimaryData.PrimaryType.range:
-                return playerData.dexterity;
+    // DAMAGE SHENANIGANS
 
-            case PrimaryData.PrimaryType.spell:
-                return playerData.arcana;
-        }
-        return 1;
+    private Vector3 CalculateDamage()
+    {
+        return new Vector3(primaryData.forceDamage * playerData.strength, primaryData.precisionDamage * playerData.dexterity, primaryData.magicDamage * playerData.arcana)* DoesItCrit();
     }
 
     private float DoesItCrit()
@@ -121,6 +128,8 @@ public class PrimaryAbility : MonoBehaviour
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
+
+        // ENEMY CHECKS
 
     private void MeleeEnemyCheck()
     {
@@ -165,23 +174,24 @@ public class PrimaryAbility : MonoBehaviour
         }
     }
 
+        // ENEMY HITS
+
     private void Hit()
     {
         if (enemiesHit != null)
         {
             foreach (GameObject g in enemiesHit)
             {
-                g.SendMessage("ApplyDamage", CalculateDamage());
-
                 Vector3 knockbackVector = Vector3.Normalize(g.transform.position - this.gameObject.transform.position);
                 g.SendMessage("GetKnockback", primaryData.knockback * knockbackVector);
+                g.SendMessage("ApplyDamage", new Damage(CalculateDamage(), this.gameObject ));
             }
         }
     }
 
     private void Fire()
     {
-        GameObject shot = Instantiate(primaryData.projectilePrefab, transform.position + (transform.rotation * Vector3.forward) , transform.rotation);
+        GameObject shot = Instantiate(primaryData.projectilePrefab, transform.position + new Vector3(0, 1f, 0) + (transform.rotation * Vector3.forward) , transform.rotation);
         Rigidbody rb = shot.GetComponent<Rigidbody>();
         Vector3 aimVector = (transform.rotation * Vector3.forward);
         if (closestEnemy)
@@ -203,7 +213,20 @@ public class PrimaryAbility : MonoBehaviour
         }
 
         shot.transform.rotation = Quaternion.LookRotation(rb.velocity);
-        shot.SendMessage("CarryDamage", CalculateDamage());
+        shot.SendMessage("CarryDamage", new Damage(CalculateDamage(), this.gameObject ));
+        shot.SendMessage("CarryKnockback", primaryData.knockback);
+    }
+
+        // FX
+
+    private void MeleeFX()
+    {
+        if (primaryData.meleeFX)
+        {
+            GameObject newlyInstantiatedFX = Instantiate(primaryData.meleeFX, this.gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
+            newlyInstantiatedFX.transform.Rotate(primaryData.FXRotations[currentComboCount%primaryData.FXRotations.Length] + transform.eulerAngles, Space.World);
+            Destroy(newlyInstantiatedFX, 1f);
+        }
     }
 
 }

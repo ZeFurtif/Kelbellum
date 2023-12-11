@@ -99,7 +99,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _Depth_Threshold: 0.002
+    - _Depth_Threshold: 0.0003
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -126,7 +126,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Depth_Tint: {r: 0.4551887, g: 0.47199294, b: 0.5, a: 0}
+    - _Depth_Tint: {r: 0.37855998, g: 0.39708462, b: 0.4433962, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Normal_Edge_Bias: {r: 0, g: 0, b: 0.6, a: 0}
     - _Normal_Tint: {r: 0.9433962, g: 0.93004626, b: 0.9301744, a: 0}

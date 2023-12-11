@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterData : ScriptableObject
 {
 
-    public string name;
+    public new string name;
     
     [Header("Root Stats")]
     public float health = 50;
@@ -27,6 +27,7 @@ public class CharacterData : ScriptableObject
     public float critChance = 0;
     public float lifeSteal = 0;
     public float evasiveness = 0;
+    public float regeneration = 0;
 
     [Header("Abilities")]
     public PrimaryData[] primaries;

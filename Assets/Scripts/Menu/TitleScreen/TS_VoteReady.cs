@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TS_VoteReady : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class TS_VoteReady : MonoBehaviour
     {
         if (playersSpawned != 0 && playersSpawned == playersReady)
         {
-            Debug.Log("GO!");
+            ToGame();
         }
     }
 
@@ -32,5 +33,15 @@ public class TS_VoteReady : MonoBehaviour
             playersReady -= 1;
         }
         CheckIfElected();
+    }
+
+    public void ToGame()
+    {
+        DataManager.Instance.SaveJson(DataManager.Instance.data, DataManager.Instance.data.saveIndex);
+
+        DataManager.Instance.data.SaveLevelData(DataManager.Instance.data.currentArea, 0);
+        
+        SceneManager.LoadScene(DataManager.Instance.data.currentArea, LoadSceneMode.Single);
+
     }
 }

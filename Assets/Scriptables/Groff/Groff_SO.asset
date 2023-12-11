@@ -22,9 +22,13 @@ MonoBehaviour:
   strResistance: 1.3
   dexResistance: 0.8
   arcResistance: 0.9
-  cooldownAcceleration: 0
+  size: 1
+  cooldownAcceleration: 1
   critChance: 0
   lifeSteal: 0
   evasiveness: 0
-  primaries: []
+  primaries:
+  - {fileID: 11400000, guid: 4a085b28748fb3d46981cdf6e5e7b404, type: 2}
+  - {fileID: 11400000, guid: 572b3308564bf994596080a2eb9f1ebb, type: 2}
+  - {fileID: 11400000, guid: 6bcd697baa045784786dd36309a3e607, type: 2}
   secondaries: []

@@ -26,8 +26,9 @@ public class PlayerData : MonoBehaviour
     public float critChance;
     public float lifeSteal;
     public float evasiveness;
+    public float regeneration;
 
-    void OnEnable()
+    void Awake()
     {
         CopyCharacterStats();
     }
@@ -52,6 +53,7 @@ public class PlayerData : MonoBehaviour
             critChance = currentCharacter.critChance;
             lifeSteal = currentCharacter.lifeSteal;
             evasiveness = currentCharacter.evasiveness;
+            regeneration = currentCharacter.regeneration;
         }
     }
 
@@ -59,6 +61,45 @@ public class PlayerData : MonoBehaviour
     {
         currentCharacter = characterData;
         CopyCharacterStats();
+    }
+
+    public void LoadPrimaryData(PrimaryData primaryData)
+    {
+        currentPrimaryData = primaryData;
+    }
+
+    public void AddStats(CharacterData charData)
+    {
+        speed += charData.speed;
+        strength += charData.strength;
+        dexterity += charData.dexterity;
+        arcana += charData.arcana;
+        strResistance += charData.strResistance;
+        dexResistance += charData.dexResistance;
+        arcResistance += charData.arcResistance;
+        size += charData.size;
+        cooldownAcceleration += charData.cooldownAcceleration;
+        critChance += charData.critChance;
+        lifeSteal += charData.lifeSteal;
+        evasiveness += charData.evasiveness;
+        regeneration += charData.regeneration;
+    }
+
+    public void SubstractStats(CharacterData charData)
+    {
+        speed -= charData.speed;
+        strength -= charData.strength;
+        dexterity -= charData.dexterity;
+        arcana -= charData.arcana;
+        strResistance -= charData.strResistance;
+        dexResistance -= charData.dexResistance;
+        arcResistance -= charData.arcResistance;
+        size -= charData.size;
+        cooldownAcceleration -= charData.cooldownAcceleration;
+        critChance -= charData.critChance;
+        lifeSteal -= charData.lifeSteal;
+        evasiveness -= charData.evasiveness;
+        regeneration -= charData.regeneration;
     }
 
 }

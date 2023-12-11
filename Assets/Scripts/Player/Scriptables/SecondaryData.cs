@@ -4,25 +4,45 @@ using UnityEngine;
 public class SecondaryData : ScriptableObject
 {
     
+    public new string name; 
+
     public enum SecondaryType
     {
+        melee,
         shield,
         heal,
-        statsUp
+        statsUp,
+        areaEffect
     }
 
     [Header("Primary Ability")]
     public SecondaryType type;
-
-    public float baseValue;
-    [HideInInspector] public float value;
-
-    public float baseCooldown;
-    [HideInInspector] public float cooldown;
-
-
-    [Header("Prefabs & FX")]
-    public GameObject fxPrefab;
-    public GameObject additionalPrefab;
+    public float cooldown;
     
+    [Header("Prefabs & FX")]
+    public GameObject[] fxPrefabs;
+
+    [Header("Damage")]
+    public float forceDamage;
+    public float precisionDamage;
+    public float magicDamage;
+
+    [Header("Melee")]
+    public float range;
+    public float knockback;
+    public float playerRecoil;
+
+    [Header("Shield")]
+    public int shieldValue;
+    public int shieldDuration;
+
+    [Header("Heal")]
+    public int healValue;
+
+    [Header("Stats Up")]
+    public CharacterData statsUpData;
+    public float statsUpDuration;
+    
+    [Header("Area of Effect")]
+    public GameObject areaObject;
 }

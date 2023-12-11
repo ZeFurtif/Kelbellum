@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d99f81945347c54e95c63fab7b4c87c, type: 3}
+  m_Name: ShortSword_SO
+  m_EditorClassIdentifier: 
+  name: Short Sword
+  type: 0
+  cooldown: 0.5
+  fxPrefabs: []
+  forceDamage: 2
+  precisionDamage: 1
+  magicDamage: 0
+  range: 3
+  knockback: 1
+  playerRecoil: 0.5
+  shieldValue: 0
+  shieldDuration: 0
+  healValue: 0
+  statsUpData: {fileID: 0}
+  statsUpDuration: 0
+  areaObject: {fileID: 0}
