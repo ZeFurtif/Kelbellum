@@ -10,4 +10,9 @@ Building this i learnt,
 - and more!
 
 Here are some screenshots from the game!
-![Screenshot](/Screenshots/Screenshot 2023-03-07 015422.png)
+![Screenshot](/Screenshots/Screenshot_1.png)
+![Screenshot](/Screenshots/Screenshot_2.png)
+![Screenshot](/Screenshots/Screenshot_3.png)
+![Screenshot](/Screenshots/Screenshot_4.png)
+![Screenshot](/Screenshots/Screenshot_5.png)
+![Screenshot](/Screenshots/Screenshot_6.png)
